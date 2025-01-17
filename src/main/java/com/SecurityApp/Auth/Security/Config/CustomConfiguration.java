@@ -10,7 +10,6 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -19,6 +18,16 @@ import org.springframework.security.web.SecurityFilterChain;
 public class CustomConfiguration {
     @Autowired
     private MyUserDetailsService userDetailsService;
+
+    /**
+     * Fist any request comes
+     * That is hit to the SecurityFilterChain
+     * Then apply the filter "UserNamePasswordAuthenticationFilter"
+     * This filter extracts the Username and password
+     * And load them into the security context
+     * To verify the UserName and Password.
+     * That load by the "UserDetailsService" in to security context
+     * */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -26,11 +35,12 @@ public class CustomConfiguration {
                 .csrf(custmizer->custmizer.disable())
                 .sessionManagement(management->management
                           .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(request->request.anyRequest().authenticated())
+                .authorizeHttpRequests(request->request
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
-
 
     /**
      *  This is CustomAuthentication provider

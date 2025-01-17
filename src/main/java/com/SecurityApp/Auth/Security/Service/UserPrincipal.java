@@ -1,5 +1,6 @@
-package com.SecurityApp.Auth.Security.Model;
+package com.SecurityApp.Auth.Security.Service;
 
+import com.SecurityApp.Auth.Security.Model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,7 +1,6 @@
 package com.SecurityApp.Auth.Security.Service;
 
 
-import com.SecurityApp.Auth.Security.Model.UserPrincipal;
 import com.SecurityApp.Auth.Security.Model.Users;
 import com.SecurityApp.Auth.Security.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;

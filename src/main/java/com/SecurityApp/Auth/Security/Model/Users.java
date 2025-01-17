@@ -14,6 +14,8 @@ public class Users {
     private int id;
     private String username;
     private String password;
+    public Users(){
+    }
 
     public int getId() {
         return id;

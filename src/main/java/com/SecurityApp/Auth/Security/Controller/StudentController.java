@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/v1/api")
 public class StudentController {
     @Autowired
     private UserRepo repo;
@@ -22,25 +23,26 @@ public class StudentController {
             new Student(3,"Munna",22)
     ));
 
-    @GetMapping("/students")
+    @GetMapping("/student")
     public List<Student> getStudents(){
         return students;
     }
 
-    @GetMapping("/csrf")
-    public CsrfToken csrfToken(HttpServletRequest request){
-        CsrfToken csrf= (CsrfToken) request.getAttribute("_csrf");
-        return csrf;
-    }
     @PostMapping("/student")
     public Student addStudent(@RequestBody Student student){
         students.add(student);
         return student;
     }
+
     @GetMapping("/user")
-    public List<Users> allUsers(){
+    public List<Users> getUsers(){
         List<Users> user=repo.findAll();
         return user;
+    }
+    @GetMapping("/csrf")
+    public CsrfToken csrfToken(HttpServletRequest request){
+        CsrfToken csrf= (CsrfToken) request.getAttribute("_csrf");
+        return csrf;
     }
 
 
