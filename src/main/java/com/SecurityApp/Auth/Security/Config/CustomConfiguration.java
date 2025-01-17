@@ -10,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -28,37 +29,17 @@ public class CustomConfiguration {
                 .authorizeHttpRequests(request->request.anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .build();
-
-//        //This is for browser provide the form login
-//        http.formLogin(Customizer.withDefaults());
-//        //This is for the REST client like Postman
-//        http.httpBasic(Customizer.withDefaults());
-//        return http.build();
     }
 
-//
-//    //Bean of the user detailed Service for customize the username and password
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        //That are the hardcoded username and password
-//        UserDetails user1= User
-//                .withDefaultPasswordEncoder()
-//                .username("Kamal")
-//                .password("12345")
-//                .roles("USER")
-//                .build();
-//        UserDetails user2= User
-//                .withDefaultPasswordEncoder()
-//                .username("Deep")
-//                .password("12345")
-//                .roles("ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(user1,user2);
-//    }
 
+    /**
+     *  This is CustomAuthentication provider
+     *  Take the username from security context
+     *  Use the "UserDetailsService Interface" to loadUserByUserName
+     *  If a user exists, then set user and password in AuthenticationManager
+     *  To verify the user and password that the user sends in request.
+     */
 
-    //This is provided username and password from a database
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider=new DaoAuthenticationProvider();

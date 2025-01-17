@@ -1,6 +1,7 @@
 package com.SecurityApp.Auth.Security.Service;
 
 
+import com.SecurityApp.Auth.Security.Model.UserPrincipal;
 import com.SecurityApp.Auth.Security.Model.Users;
 import com.SecurityApp.Auth.Security.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * MyUserDetailsService class Implement the UserDetailsService
+ * Interface to override the loadUserByUserName method
+ * To fetching the user from a database.
+ * If the user exists, then call the
+ * "UserPrincipal"(UserPrincipal is the custom class for implementing the UserDetails Interface)
+ * And pass the fetched user form DB
+ */
 @Service
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired

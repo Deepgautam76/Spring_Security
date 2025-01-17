@@ -7,9 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 public class Users {
     @Id
@@ -41,9 +39,17 @@ public class Users {
         this.password = password;
     }
 
-//    public Users(int id, String username, String password) {
-//        this.id = id;
-//        this.username = username;
-//        this.password = password;
-//    }
+    public Users(int id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

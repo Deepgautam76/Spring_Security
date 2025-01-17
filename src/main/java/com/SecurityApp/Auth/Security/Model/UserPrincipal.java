@@ -1,17 +1,16 @@
-package com.SecurityApp.Auth.Security.Service;
+package com.SecurityApp.Auth.Security.Model;
 
-import com.SecurityApp.Auth.Security.Model.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Collections;
 
 /**
- * This class only uses for implements UserDetails Interface
+ * UserPrincipal class implements UserDetails Interface
  * That makes an object create of UserDetails
+ * Also load the fetch user in spring security context
  */
 public class UserPrincipal implements UserDetails {
     private Users user;
@@ -45,7 +44,6 @@ public class UserPrincipal implements UserDetails {
     public boolean isCredentialsNonExpired() {
         return true;
     }
-
     @Override
     public boolean isEnabled() {
         return true;
