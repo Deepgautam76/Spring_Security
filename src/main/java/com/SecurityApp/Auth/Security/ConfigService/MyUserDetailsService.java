@@ -1,4 +1,4 @@
-package com.SecurityApp.Auth.Security.Service;
+package com.SecurityApp.Auth.Security.ConfigService;
 
 
 import com.SecurityApp.Auth.Security.Model.Users;

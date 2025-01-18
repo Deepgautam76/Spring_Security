@@ -3,6 +3,8 @@ package com.SecurityApp.Auth.Security.Service;
 import com.SecurityApp.Auth.Security.Model.Users;
 import com.SecurityApp.Auth.Security.Repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,12 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
+//    @Autowired
+//    private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    private PasswordEncoder encoder;
+
     public List<Users> getAllUsers(){
         return userRepo.findAll();
     }
@@ -19,7 +27,7 @@ public class UserService {
         Users newUser=new Users();
         newUser.setId(user.getId());
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(user.getPassword());
+        newUser.setPassword(encoder.encode(user.getPassword()));
         return userRepo.save(newUser);
     }
 }

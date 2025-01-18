@@ -1,49 +1,37 @@
 package com.SecurityApp.Auth.Security.Controller;
 
 import com.SecurityApp.Auth.Security.Model.Student;
-import com.SecurityApp.Auth.Security.Model.Users;
-import com.SecurityApp.Auth.Security.Repository.UserRepo;
+import com.SecurityApp.Auth.Security.Service.StudentService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * These all end points are protected
+ */
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping("/api/v1")
 public class StudentController {
+
     @Autowired
-    private UserRepo repo;
+    private StudentService studentService;
 
-    List<Student> students=new ArrayList<>(List.of(
-            new Student(1,"kamal",22),
-            new Student(2,"deep",23),
-            new Student(3,"Munna",22)
-    ));
-
-    @GetMapping("/student")
-    public List<Student> getStudents(){
-        return students;
+    @GetMapping("/students")
+    public ResponseEntity<List<?>> getStudents(){
+        List<Student> allStudent=studentService.getStudent();
+        return new ResponseEntity<>(allStudent,HttpStatus.OK);
     }
 
     @PostMapping("/student")
-    public Student addStudent(@RequestBody Student student){
-        students.add(student);
-        return student;
+    public ResponseEntity<Student> addStudent(@RequestBody Student student){
+        Student newStudent=studentService.creteStudent(student);
+        return new ResponseEntity<>(newStudent,HttpStatus.CREATED);
     }
-
-    @GetMapping("/user")
-    public List<Users> getUsers(){
-        List<Users> user=repo.findAll();
-        return user;
-    }
-    @GetMapping("/csrf")
-    public CsrfToken csrfToken(HttpServletRequest request){
-        CsrfToken csrf= (CsrfToken) request.getAttribute("_csrf");
-        return csrf;
-    }
-
 
 }
