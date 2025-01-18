@@ -35,4 +35,5 @@ public class UserController {
         System.out.println("After save the user:"+CreatedUser);
         return new ResponseEntity<>(CreatedUser,HttpStatus.CREATED);
     }
+
 }
