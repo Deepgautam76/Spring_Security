@@ -16,11 +16,18 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * This end-point protected
+     */
     @GetMapping("/api/v1/users")
     public ResponseEntity<?> getAllUser(){
         List<Users> user=userService.getAllUsers();
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
+
+    /**
+     * This end-pont public
+     */
     @PostMapping("/user")
     public ResponseEntity<?> createUser(@RequestBody Users user){
         System.out.println("Upcoming the body"+ user);
